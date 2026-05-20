@@ -4,6 +4,7 @@ let bacha = document.querySelector(".bachha input");
 let dahi = document.querySelector(".dahi input");
 let dahi35 = document.querySelector(".dahi35 input");
 let chach = document.querySelector(".chach input");
+let plainChach = document.querySelector(".plainChach input");
 let bread10 = document.querySelector(".bread10 input");
 let bread20 = document.querySelector(".bread20 input");
 let mango10 = document.querySelector(".mango10 input");
@@ -42,17 +43,18 @@ close.addEventListener('click', () => {
 })
 
 function calculate() {
-    const fullP = full.value * 34.5 * 2;
-    const cowP = cow.value * 29.5 * 2;
+    const fullP = full.value * 35.5 * 2;
+    const cowP = cow.value * 30.5 * 2;
     const bachaP = bacha.value * 9;
     const dahiP = dahi.value * 19;
     const dahi35P = dahi35.value * 34;
     const chachP = chach.value * 9.5;
+    const plainChachP = plainChach.value * 9.5;
     const bread10P = bread10.value * 9;
     const bread20P = bread20.value * 18;
     const mango10P = mango10.value * 9;
 
-    let total = fullP + cowP + bachaP + dahiP + dahi35P + chachP + bread10P + bread20P + mango10P;
+    let total = fullP + cowP + bachaP + dahiP + dahi35P + chachP + plainChachP + bread10P + bread20P + mango10P;
 
     document.querySelector(".display").innerHTML = `Rs ${total}`;
     itemList.style.display = "flex";
