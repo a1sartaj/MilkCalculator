@@ -4,10 +4,10 @@ let bacha = document.querySelector(".bachha input");
 let dahi = document.querySelector(".dahi input");
 let dahi35 = document.querySelector(".dahi35 input");
 let chach = document.querySelector(".chach input");
+let pudinaChach = document.querySelector(".pudinaChach input");
 let plainChach = document.querySelector(".plainChach input");
 let bread10 = document.querySelector(".bread10 input");
 let bread20 = document.querySelector(".bread20 input");
-let mango10 = document.querySelector(".mango10 input");
 
 const itemsName = document.querySelectorAll(".item-name .flex");
 const itemList = document.querySelector(".item-list")
@@ -49,12 +49,12 @@ function calculate() {
     const dahiP = dahi.value * 19;
     const dahi35P = dahi35.value * 34;
     const chachP = chach.value * 9.5;
+    const pudinaChachP = pudinaChach.value * 9.5;
     const plainChachP = plainChach.value * 9.5;
     const bread10P = bread10.value * 9;
     const bread20P = bread20.value * 18;
-    const mango10P = mango10.value * 9;
 
-    let total = fullP + cowP + bachaP + dahiP + dahi35P + chachP + plainChachP + bread10P + bread20P + mango10P;
+    let total = fullP + cowP + bachaP + dahiP + dahi35P + chachP + pudinaChachP + plainChachP + bread10P + bread20P;
 
     document.querySelector(".display").innerHTML = `Rs ${total}`;
     itemList.style.display = "flex";
