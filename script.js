@@ -1,64 +1,102 @@
-let full = document.querySelector(".full-cream input");
-const cow = document.querySelector(".cow-milk input");
-let bacha = document.querySelector(".bachha input");
-let dahi = document.querySelector(".dahi input");
-let dahi35 = document.querySelector(".dahi35 input");
-let chach = document.querySelector(".chach input");
-let pudinaChach = document.querySelector(".pudinaChach input");
-let plainChach = document.querySelector(".plainChach input");
-let bread10 = document.querySelector(".bread10 input");
-let bread20 = document.querySelector(".bread20 input");
+// ==========================================
+// 1. DATA CONFIGURATION: Change / Add items here
+// ==========================================
+const items = [
+    { id: "fullCream", name: "Full Cream Milk", unit: "Kg", price: 71 },   // 35.5 * 2 = 71/kg
+    { id: "cowMilk", name: "Cow Milk", unit: "Kg", price: 61 },   // 30.5 * 2 = 61/kg
+    { id: "bachha", name: "Bachha", unit: "Pcs", price: 9 },
+    { id: "dahi", name: "Dahi", unit: "Pcs", price: 19 },
+    { id: "dahi35", name: "Dahi (35rs)", unit: "Pcs", price: 34 },
+    { id: "chach", name: "Chach", unit: "Pcs", price: 9.5 },
+    { id: "bread10", name: "Bread 10rs", unit: "Pcs", price: 9 },
+    { id: "bread20", name: "Bread 20rs", unit: "Pcs", price: 18 }
+    // Naya item add karne ke liye bas neeche format me line add kar dein:
+    // { id: "paneer", name: "Paneer", unit: "Kg", price: 320 }
+];
 
-const itemsName = document.querySelectorAll(".item-name .flex");
-const itemList = document.querySelector(".item-list")
-let textArea = document.querySelector('.textarea');
-let close = document.querySelector('.close-btn');
-let text = ""
+let generatedSummary = "";
 
-function showText() {
-    text = ""
-    itemsName.forEach(element => {
-        const inputValue = element.querySelector(".text-fields").value;
-        const itemName = element.querySelector("h4").textContent;
-        if (inputValue > 0) {
-            text = text + `${inputValue} ${itemName}\n`;
+// ==========================================
+// 2. RENDER ITEMS DYNAMICALLY
+// ==========================================
+const itemsContainer = document.getElementById("itemsContainer");
+
+function renderItems() {
+    itemsContainer.innerHTML = "";
+    items.forEach(item => {
+        const row = document.createElement("div");
+        row.className = "item-row";
+        row.innerHTML = `
+            <div class="item-info">
+                <span class="item-title">${item.name}</span>
+                <span class="item-rate">₹${item.price} / ${item.unit}</span>
+            </div>
+            <div class="item-input-wrapper">
+                <input type="number" id="input-${item.id}" min="0" step="any" placeholder="0">
+                <span class="item-unit">${item.unit}</span>
+            </div>
+        `;
+        itemsContainer.appendChild(row);
+    });
+}
+
+// ==========================================
+// 3. CALCULATION & SUMMARY BUILDER
+// ==========================================
+// ==========================================
+// 3. UPDATED CALCULATION & WHATSAPP MESSAGE FORMATTER
+// ==========================================
+function calculateBill() {
+    let grandTotal = 0;
+    let summaryLines = [];
+
+    items.forEach(item => {
+        const inputElem = document.getElementById(`input-${item.id}`);
+        const qty = parseFloat(inputElem.value) || 0;
+
+        if (qty > 0) {
+            const itemTotal = qty * item.price;
+            grandTotal += itemTotal;
+            // Simple format: Full Cream Milk: 2 Kg - ₹142
+            summaryLines.push(`${qty} ${item.unit} ${item.name}`);
         }
-    })
-    textArea.value = text;
+    });
+
+    // Bottom screen display update
+    document.getElementById("totalAmount").innerText = `₹${grandTotal}`;
+
+    // Simple, readable WhatsApp text
+    if (summaryLines.length > 0) {
+        generatedSummary = summaryLines.join("\n") + `\n\nTotal = ₹${grandTotal}`;
+    } else {
+        generatedSummary = "No items selected.";
+    }
+
+    document.getElementById("summaryText").value = generatedSummary;
+    document.getElementById("modalOverlay").style.display = "flex";
 }
 
-function selectText() {
-    textArea.select();
-    document.execCommand("copy");
+// ==========================================
+// 4. MODAL & ACTIONS
+// ==========================================
+function closeModal() {
+    document.getElementById("modalOverlay").style.display = "none";
 }
 
-function sendMessage() {
-    const encodedMsg = text.replace(/\n/g, '%0A');
-    const win = window.open(`https://wa.me/?text=${encodedMsg}`, '_blank');
+function copySummaryText() {
+    const summaryText = document.getElementById("summaryText");
+    summaryText.select();
+    navigator.clipboard.writeText(summaryText.value);
+    alert("Summary copied to clipboard!");
 }
 
-close.addEventListener('click', () => {
-    itemList.style.display = "none";
-
-})
-
-function calculate() {
-    const fullP = full.value * 35.5 * 2;
-    const cowP = cow.value * 30.5 * 2;
-    const bachaP = bacha.value * 9;
-    const dahiP = dahi.value * 19;
-    const dahi35P = dahi35.value * 34;
-    const chachP = chach.value * 9.5;
-    const pudinaChachP = pudinaChach.value * 9.5;
-    const plainChachP = plainChach.value * 9.5;
-    const bread10P = bread10.value * 9;
-    const bread20P = bread20.value * 18;
-
-    let total = fullP + cowP + bachaP + dahiP + dahi35P + chachP + pudinaChachP + plainChachP + bread10P + bread20P;
-
-    document.querySelector(".display").innerHTML = `Rs ${total}`;
-    itemList.style.display = "flex";
-
-    // addingText()
-    showText()
+function sendWhatsApp() {
+    if (!generatedSummary || generatedSummary === "No items entered.") {
+        calculateBill();
+    }
+    const encoded = encodeURIComponent(generatedSummary);
+    window.open(`https://wa.me/?text=${encoded}`, '_blank');
 }
+
+// Initialize on load
+renderItems();

@@ -4,85 +4,71 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Milk Calculator</title>
+    <title>Smart Milk & Dairy Calculator</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
-        integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
-    <div class="container">
-        <div class="container-header">
-            <h1>Milk Calculator</h1>
+    <div class="calculator-card">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-icon"><i class="fa-solid fa-bottle-droplet"></i></div>
+            <div>
+                <h2>Dairy Calculator</h2>
+                <p>Quick billing & order generation</p>
+            </div>
         </div>
 
-        <div class="item-name">
-            <div class="full-cream flex">
-                <h4><span>Kg </span>Full Cream Milk</h4>
-                <input class="text-fields" type="number" placeholder="Kg">
-            </div>
-            <div class="cow-milk flex">
-                <h4><span>Kg </span>Cow Milk</h4>
-                <input class="text-fields" type="number" placeholder="Kg">
-            </div>
-            <div class="bachha flex">
-                <h4>Bachha</h4>
-                <input class="text-fields" type="number" placeholder="Pcs">
-            </div>
-            <div class="dahi flex">
-                <h4>Dahi</h4>
-                <input class="text-fields" type="number" placeholder="Pcs">
-            </div>
-            <div class="dahi35 flex">
-                <h4>Dahi 35rs</h4>
-                <input class="text-fields" type="number" placeholder="Pcs">
-            </div>
-            <div class="chach flex">
-                <h4>Chach</h4>
-                <input class="text-fields" type="number" placeholder="Pcs">
-            </div>
-             <div class="pudinaChach flex">
-                <h4>Pudina Chach</h4>
-                <input class="text-fields" type="number" placeholder="Pcs">
-            </div>
-            <div class="plainChach flex">
-                <h4>Plain Chach</h4>
-                <input class="text-fields" type="number" placeholder="Pcs">
-            </div>
-            <div class="bread10 flex">
-                <h4>Bread 10rs</h4>
-                <input class="text-fields" type="number" placeholder="Pcs">
-            </div>
-            <div class="bread20 flex">
-                <h4>Bread 20rs</h4>
-                <input class="text-fields" type="number" placeholder="Pcs">
-            </div>
-           
+        <!-- Dynamic Items Container -->
+        <div class="items-list" id="itemsContainer">
+            <!-- JavaScript dynamically renders input rows here -->
         </div>
 
-        <div class="bottom">
-
-            <div class="item-list">
-                <div class="display">
-                    Rs 00.00
-                </div>
-                <textarea
-                    class="textarea">Hello My name is sartaj AlamHello My name is sartaj AlamHello My name is sartaj AlamHello My name is sartaj AlamHello My name is sartaj AlamHello My name is sartaj AlamHello My name is sartaj Alam</textarea>
-                <button class="close-btn">Close</button>
+        <!-- Footer / Action Area -->
+        <div class="footer">
+            <div class="total-display">
+                <span class="label">Total Amount</span>
+                <span class="amount" id="totalAmount">₹0.00</span>
             </div>
-            <div class="btn">
-                <button onclick="calculate()">Calculate</button>
-                <div class="whatsApp" onclick="sendMessage()">
+
+            <div class="action-buttons">
+                <button class="btn btn-primary" onclick="calculateBill()">
+                    <i class="fa-solid fa-calculator"></i> Calculate
+                </button>
+                <button class="btn btn-whatsapp" onclick="sendWhatsApp()" title="Send on WhatsApp">
                     <i class="fa-brands fa-whatsapp"></i>
-                </div>
-                <button onclick="selectText()">Copy</button>
+                </button>
+            </div>
+        </div>
 
+        <!-- Bill Summary Modal -->
+        <div class="modal-overlay" id="modalOverlay">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3><i class="fa-solid fa-receipt"></i> Order Summary</h3>
+                    <button class="icon-btn" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="modal-body">
+                    <textarea id="summaryText" readonly></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" onclick="copySummaryText()">
+                        <i class="fa-regular fa-copy"></i> Copy Text
+                    </button>
+                    <button class="btn btn-whatsapp flex-1" onclick="sendWhatsApp()">
+                        <i class="fa-brands fa-whatsapp"></i> WhatsApp
+                    </button>
+                </div>
             </div>
         </div>
     </div>
-    <!-- <a href="https://api.whatsapp.com/send?phone=9871990306">Send Message</a> -->
 
     <script src="script.js"></script>
 </body>
