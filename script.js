@@ -2,8 +2,8 @@
 // 1. DATA CONFIGURATION: Change / Add items here
 // ==========================================
 const items = [
-    { id: "fullCream", name: "Full Cream Milk", unit: "Kg", price: 71 },   // 35.5 * 2 = 71/kg
-    { id: "cowMilk", name: "Cow Milk", unit: "Kg", price: 61 },   // 30.5 * 2 = 61/kg
+    { id: "fullCream", name: "Full Cream Milk", unit: "Kg", price: 75 },   // 37.5* 2 = 75/kg
+    { id: "cowMilk", name: "Cow Milk", unit: "Kg", price: 65 },   // 32.5 * 2 = 65/kg
     { id: "bachha", name: "Bachha", unit: "Pcs", price: 9 },
     { id: "dahi", name: "Dahi", unit: "Pcs", price: 19 },
     { id: "dahi35", name: "Dahi (35rs)", unit: "Pcs", price: 34 },
